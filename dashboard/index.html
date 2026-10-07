@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dashboard de Livros</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Literata:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+</head>
+<body>
+
+  <header>
+    <h1>Catálogo de livros</h1>
+    <p>Coletado de books.toscrape.com. Última coleta: <span id="ultima-coleta">-</span></p>
+  </header>
+
+  <main>
+
+    <p id="aviso" class="aviso" hidden></p>
+
+    <section class="indicadores" aria-label="Indicadores">
+      <div class="indicador">
+        <span class="rotulo">Livros coletados</span>
+        <strong class="valor" id="total">-</strong>
+      </div>
+      <div class="indicador">
+        <span class="rotulo">Preço médio</span>
+        <strong class="valor" id="preco-medio">-</strong>
+      </div>
+      <div class="indicador">
+        <span class="rotulo">Avaliação média</span>
+        <strong class="valor" id="avaliacao-media">-</strong>
+      </div>
+      <div class="indicador">
+        <span class="rotulo">Livros em estoque</span>
+        <strong class="valor" id="em-estoque">-</strong>
+      </div>
+      <div class="indicador">
+        <span class="rotulo">Categoria mais comum</span>
+        <strong class="valor texto" id="categoria-top">-</strong>
+      </div>
+      <div class="indicador">
+        <span class="rotulo">Livro mais caro</span>
+        <strong class="valor texto" id="mais-caro">-</strong>
+      </div>
+    </section>
+
+    <section class="graficos">
+      <div class="painel grande">
+        <h2>Categorias com mais livros</h2>
+        <div class="area-grafico">
+          <canvas id="grafico-categorias"></canvas>
+        </div>
+      </div>
+      <div class="painel">
+        <h2>Livros por avaliação</h2>
+        <div class="area-grafico">
+          <canvas id="grafico-avaliacoes"></canvas>
+        </div>
+      </div>
+      <div class="painel">
+        <h2>Livros por faixa de preço</h2>
+        <div class="area-grafico">
+          <canvas id="grafico-precos"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <section class="painel">
+      <h2>Buscar livros</h2>
+      <div class="filtros">
+        <label>Título
+          <input type="text" id="filtro-busca" placeholder="Parte do título">
+        </label>
+        <label>Categoria
+          <select id="filtro-categoria">
+            <option value="">Todas</option>
+          </select>
+        </label>
+        <label>Avaliação mínima
+          <select id="filtro-avaliacao">
+            <option value="0">Qualquer</option>
+            <option value="1">1 estrela ou mais</option>
+            <option value="2">2 estrelas ou mais</option>
+            <option value="3">3 estrelas ou mais</option>
+            <option value="4">4 estrelas ou mais</option>
+            <option value="5">5 estrelas</option>
+          </select>
+        </label>
+        <label>Preço máximo (£)
+          <input type="number" id="filtro-preco" min="0" step="1" placeholder="Sem limite">
+        </label>
+        <label>Ordenar por
+          <select id="filtro-ordem">
+            <option value="titulo">Título</option>
+            <option value="preco_menor">Menor preço</option>
+            <option value="preco_maior">Maior preço</option>
+            <option value="avaliacao">Melhor avaliação</option>
+          </select>
+        </label>
+        <div class="botoes">
+          <button id="botao-filtrar">Filtrar</button>
+          <button id="botao-limpar" class="secundario">Limpar</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="painel">
+      <p id="resumo-tabela" class="resumo"></p>
+      <div class="rolagem">
+        <table>
+          <thead>
+            <tr>
+              <th>Título</th>
+              <th>Categoria</th>
+              <th class="numero">Preço</th>
+              <th>Avaliação</th>
+              <th class="numero">Estoque</th>
+              <th>Coletado em</th>
+            </tr>
+          </thead>
+          <tbody id="corpo-tabela"></tbody>
+        </table>
+      </div>
+
+      <div class="paginacao">
+        <button id="botao-anterior" class="secundario">Anterior</button>
+        <span id="texto-pagina"></span>
+        <button id="botao-proxima" class="secundario">Próxima</button>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    Dados fictícios do site de prática <a href="https://books.toscrape.com" target="_blank" rel="noopener">books.toscrape.com</a>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
